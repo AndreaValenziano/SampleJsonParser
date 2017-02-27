@@ -33,8 +33,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     public void onBindViewHolder(StudentsAdapter.StudentViewHolder holder, int position) {
 
         Student currentStudent = dataSet.get(position);
+
         holder.studentNameTv.setText(currentStudent.getName());
         holder.studentEmail.setText(currentStudent.getEmail());
+        holder.studentCourseId.setText(currentStudent.getCourse().getId());
+        holder.studentCourseName.setText(currentStudent.getCourse().getName());
+
     }
 
     @Override
@@ -50,14 +54,17 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
     class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView studentNameTv;
-        public TextView studentEmail;
+        public TextView studentEmail, studentCourseName, studentCourseId;
         public ImageButton studenGithub;
+
 
         public StudentViewHolder(final View v) {
             super(v);
             studentNameTv = (TextView) v.findViewById(R.id.student_name);
             studentEmail = (TextView) v.findViewById(R.id.student_email);
             studenGithub = (ImageButton) v.findViewById(R.id.student_github);
+            studentCourseId= (TextView) v.findViewById(R.id.student_course_id);
+            studentCourseName=(TextView) v.findViewById(R.id.student_course_name);
 
             studenGithub.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,10 +1,12 @@
 package com.example.andreavalenziano.samplejsonparser;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 
 import org.json.JSONArray;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     StudentsAdapter adapter;
 
+    private static final String STUDENTS_KEY="students";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +56,11 @@ public class MainActivity extends AppCompatActivity {
         try {
 
 
-            JSONArray studentsJsonArray = new JSONArray(readLocalJson());
+
+            JSONObject studentsJsonObject = new JSONObject(readLocalJson());
+            JSONArray studentsJsonArray = studentsJsonObject.getJSONArray(STUDENTS_KEY);
             for (int i = 0; i < studentsJsonArray.length(); i++) {
+                Log.d(ContentValues.TAG,"CICLO FOR");
                 JSONObject jsonStudent = studentsJsonArray.getJSONObject(i);
                 students.add(new Student(jsonStudent));
             }
@@ -73,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
-        try (InputStream is = getResources().openRawResource(R.raw.students)) {
+        try (InputStream is = getResources().openRawResource(R.raw.students_v2)) {
+            Log.d(ContentValues.TAG,"BUFFERED READER");
             Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             int n;
             while ((n = reader.read(buffer)) != -1) {
