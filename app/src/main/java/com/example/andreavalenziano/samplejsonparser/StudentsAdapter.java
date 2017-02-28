@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -36,8 +39,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
         holder.studentNameTv.setText(currentStudent.getName());
         holder.studentEmail.setText(currentStudent.getEmail());
-        holder.studentCourseId.setText(currentStudent.getCourse().getId());
-        holder.studentCourseName.setText(currentStudent.getCourse().getName());
+       new ImageDownloaderTask(holder.studentAvatar).execute(currentStudent.getAvatar());
+       /* Glide
+                .with(holder.itemView.getContext())
+                .load(currentStudent.getAvatar())
+                .placeholder(R.drawable.placeholder)
+                .into(holder.studentAvatar);*/
 
     }
 
@@ -54,7 +61,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
     class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView studentNameTv;
-        public TextView studentEmail, studentCourseName, studentCourseId;
+        public TextView studentEmail;
+        public ImageView studentAvatar;
         public ImageButton studenGithub;
 
 
@@ -63,8 +71,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
             studentNameTv = (TextView) v.findViewById(R.id.student_name);
             studentEmail = (TextView) v.findViewById(R.id.student_email);
             studenGithub = (ImageButton) v.findViewById(R.id.student_github);
-            studentCourseId= (TextView) v.findViewById(R.id.student_course_id);
-            studentCourseName=(TextView) v.findViewById(R.id.student_course_name);
+            studentAvatar= (ImageView) v.findViewById(R.id.student_image);
+
 
             studenGithub.setOnClickListener(new View.OnClickListener() {
                 @Override

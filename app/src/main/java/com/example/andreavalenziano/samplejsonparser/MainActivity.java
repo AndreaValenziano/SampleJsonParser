@@ -55,12 +55,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Student> students = new ArrayList<>();
         try {
 
-
-
-            JSONObject studentsJsonObject = new JSONObject(readLocalJson());
-            JSONArray studentsJsonArray = studentsJsonObject.getJSONArray(STUDENTS_KEY);
+            JSONArray studentsJsonArray = new JSONArray(readLocalJson());
             for (int i = 0; i < studentsJsonArray.length(); i++) {
-                Log.d(ContentValues.TAG,"CICLO FOR");
                 JSONObject jsonStudent = studentsJsonArray.getJSONObject(i);
                 students.add(new Student(jsonStudent));
             }
@@ -80,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
-        try (InputStream is = getResources().openRawResource(R.raw.students_v2)) {
-            Log.d(ContentValues.TAG,"BUFFERED READER");
+        try (InputStream is = getResources().openRawResource(R.raw.students)) {
+
             Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             int n;
             while ((n = reader.read(buffer)) != -1) {

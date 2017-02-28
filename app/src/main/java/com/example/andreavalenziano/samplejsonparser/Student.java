@@ -15,18 +15,19 @@ public class Student {
     private static final String NAME_KEY = "nome";
     private static final String EMAIL_KEY = "email";
     private static final String GITHUB_KEY = "github";
-    private static final String COURSE_KEY = "corso";
+    private static final String AVATAR_KEY = "avatar";
 
 
-    String name, email, github;
-   Course course;
+    String name, email, github, avatar;
+
 
     public Student(JSONObject jsonStudent) {
         try {
             name = jsonStudent.getString(NAME_KEY);
             email = jsonStudent.getString(EMAIL_KEY);
             github = buildGithubUrl(jsonStudent.optString(GITHUB_KEY,""));
-            course=new Course(jsonStudent.getJSONObject(COURSE_KEY));
+            avatar = jsonStudent.optString(AVATAR_KEY);
+
             Log.d(ContentValues.TAG, "NAME: "+name);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -35,6 +36,13 @@ public class Student {
 
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getName() {
         return name;
@@ -60,13 +68,7 @@ public class Student {
         this.github = github;
     }
 
-    public Course getCourse() {
-        return course;
-    }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 
     private String buildGithubUrl(String username){
         username = username.replace("@","");
