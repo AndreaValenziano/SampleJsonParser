@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView studentsRv;
     LinearLayoutManager layoutManager;
     StudentsAdapter adapter;
+    ItemTouchHelper itemTouchHelper;
 
     private static final String STUDENTS_KEY="students";
 

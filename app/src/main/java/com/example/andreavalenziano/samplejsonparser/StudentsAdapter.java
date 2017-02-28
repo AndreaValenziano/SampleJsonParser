@@ -39,12 +39,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
         holder.studentNameTv.setText(currentStudent.getName());
         holder.studentEmail.setText(currentStudent.getEmail());
-       new ImageDownloaderTask(holder.studentAvatar).execute(currentStudent.getAvatar());
-       /* Glide
+       //new ImageDownloaderTask(holder.studentAvatar).execute(currentStudent.getAvatar());
+        Glide
                 .with(holder.itemView.getContext())
                 .load(currentStudent.getAvatar())
                 .placeholder(R.drawable.placeholder)
-                .into(holder.studentAvatar);*/
+                .into(holder.studentAvatar);
 
     }
 
