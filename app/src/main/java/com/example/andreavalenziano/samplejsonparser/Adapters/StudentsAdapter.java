@@ -1,9 +1,8 @@
-package com.example.andreavalenziano.samplejsonparser;
+package com.example.andreavalenziano.samplejsonparser.Adapters;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.andreavalenziano.samplejsonparser.Model.Student;
+import com.example.andreavalenziano.samplejsonparser.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by AndreaValenziano on 27/02/17.
  */
-public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentViewHolder> {
+public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentViewHolder>  implements ItemTouchHelperAdapter{
 
     private ArrayList<Student> dataSet = new ArrayList<>();
 
@@ -28,6 +30,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false);
         StudentViewHolder holder = new StudentViewHolder(v);
+
+
         return holder;
     }
 
@@ -87,6 +91,28 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(dataSet, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(dataSet, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        dataSet.remove(position);
+        notifyItemRemoved(position);
+
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.andreavalenziano.samplejsonparser;
+package com.example.andreavalenziano.samplejsonparser.Model;
 
 import android.content.ContentValues;
 import android.util.Log;

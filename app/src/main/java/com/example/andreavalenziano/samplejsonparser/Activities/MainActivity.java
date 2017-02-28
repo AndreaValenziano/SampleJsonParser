@@ -1,14 +1,15 @@
-package com.example.andreavalenziano.samplejsonparser;
+package com.example.andreavalenziano.samplejsonparser.Activities;
 
-import android.content.ContentValues;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.Menu;
+
+import com.example.andreavalenziano.samplejsonparser.Callback.SimpleItemTouchHelperCallback;
+import com.example.andreavalenziano.samplejsonparser.Model.Student;
+import com.example.andreavalenziano.samplejsonparser.R;
+import com.example.andreavalenziano.samplejsonparser.Adapters.StudentsAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView studentsRv;
     LinearLayoutManager layoutManager;
     StudentsAdapter adapter;
-    ItemTouchHelper itemTouchHelper;
+    ItemTouchHelper mItemTouchHelper;
 
     private static final String STUDENTS_KEY="students";
 
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         studentsRv.setAdapter(adapter);
         studentsRv.setLayoutManager(layoutManager);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(studentsRv);
         fetchStudentsFromJSON();
 
 
@@ -91,4 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         return writer.toString();
     }
+
+
+
 }
