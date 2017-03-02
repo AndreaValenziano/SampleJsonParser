@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by AndreaValenziano on 02/03/17.
  */
-public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder>{
+public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
 
 
     private ArrayList<Place> dataSet = new ArrayList<>();
@@ -38,8 +38,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
     public void onBindViewHolder(PlaceViewHolder holder, int position) {
 
         Place place = dataSet.get(position);
-        holder.placeName.setText(place.getName());
-        holder.placeAdress.setText(place.getAddress());
+        holder.placeNameTV.setText(place.getName());
+        holder.placeAdressTV.setText(place.getAddress());
+        holder.phoneNumberTV.setText(place.getPhoneNumber());
 
     }
 
@@ -48,29 +49,40 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         return dataSet.size();
     }
 
-    class PlaceViewHolder extends RecyclerView.ViewHolder {
-        TextView placeName;
-        TextView placeAdress;
-        Button goMaps_Btn;
+    class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView placeNameTV;
+        TextView placeAdressTV, phoneNumberTV;
+        Button goMapsBtn;
 
         PlaceViewHolder(View itemView) {
             super(itemView);
-            placeName = (TextView) itemView.findViewById(R.id.place_name);
-            placeAdress = (TextView) itemView.findViewById(R.id.place_address);
-            goMaps_Btn=(Button)itemView.findViewById(R.id.go_maps_btn);
+            placeNameTV = (TextView) itemView.findViewById(R.id.place_name);
+            placeAdressTV = (TextView) itemView.findViewById(R.id.place_address);
+            goMapsBtn =(Button)itemView.findViewById(R.id.go_maps_btn);
+            phoneNumberTV=(TextView) itemView.findViewById(R.id.phone_number_tv);
 
-            goMaps_Btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(v.getId()==R.id.go_maps_btn){
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        Uri uri = Uri.parse("geo:0,0?q=" + dataSet.get(getAdapterPosition()).getAddress());
-                        intent.setData(uri);
-                        v.getContext().startActivity(intent);
-                    }
-                }
-            });
+            goMapsBtn.setOnClickListener(this);
+            phoneNumberTV.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId()==R.id.go_maps_btn){
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse("geo:0,0?q=" + dataSet.get(getAdapterPosition()).getAddress());
+                intent.setData(uri);
+                v.getContext().startActivity(intent);
+            }
+            if(v.getId()==R.id.phone_number_tv){
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse("tel:" + dataSet.get(getAdapterPosition()).getPhoneNumber());
+                intent.setData(uri);
+                v.getContext().startActivity(intent);
+            }
+
+
         }
     }
 }
