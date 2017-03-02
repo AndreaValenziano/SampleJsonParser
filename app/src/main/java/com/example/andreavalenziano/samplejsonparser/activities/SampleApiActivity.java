@@ -34,7 +34,7 @@ public class SampleApiActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     PlacesAdapter adapter;
 
-    EditText searchEt;
+    EditText searchEt, searchCityET;
     Button searchBtn;
     ProgressBar loading;
 
@@ -53,6 +53,7 @@ public class SampleApiActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         searchEt=(EditText)findViewById(R.id.search_et);
+        searchCityET=(EditText)findViewById(R.id.search_city_et);
         searchBtn=(Button)findViewById(R.id.search_btn);
         loading=(ProgressBar)findViewById(R.id.loading);
 
@@ -68,7 +69,8 @@ public class SampleApiActivity extends AppCompatActivity {
 
     private void doSearch() {
         String query = searchEt.getText().toString();
-        new FoursquareApiTask().execute(query);
+        String near=searchCityET.getText().toString();
+        new FoursquareApiTask().execute(query, near);
     }
 
     private class FoursquareApiTask extends AsyncTask<String, Void, ArrayList<Place>>{
@@ -96,7 +98,7 @@ public class SampleApiActivity extends AppCompatActivity {
             ArrayList<Place> placesArraylist = new ArrayList<>();
             try {
                 foursquareAPI = new FoursquareAPI();
-                String url = foursquareAPI.getUrlString(strings[0]);
+                String url = foursquareAPI.getUrlString(strings[0], strings[1]);
 
 
 
