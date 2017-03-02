@@ -1,4 +1,4 @@
-package com.example.andreavalenziano.samplejsonparser.Adapters;
+package com.example.andreavalenziano.samplejsonparser.adapters;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.andreavalenziano.samplejsonparser.Model.Student;
+import com.example.andreavalenziano.samplejsonparser.models.Student;
 import com.example.andreavalenziano.samplejsonparser.R;
 
 import java.util.ArrayList;

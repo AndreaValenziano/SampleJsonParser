@@ -1,4 +1,4 @@
-package com.example.andreavalenziano.samplejsonparser;
+package com.example.andreavalenziano.samplejsonparser.services;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -6,8 +6,9 @@ import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
+import com.example.andreavalenziano.samplejsonparser.R;
+
 import java.lang.ref.WeakReference;
-import java.util.WeakHashMap;
 
 /**
  * Created by AndreaValenziano on 28/02/17.

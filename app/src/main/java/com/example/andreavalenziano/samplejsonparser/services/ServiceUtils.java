@@ -1,4 +1,4 @@
-package com.example.andreavalenziano.samplejsonparser;
+package com.example.andreavalenziano.samplejsonparser.services;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

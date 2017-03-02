@@ -1,4 +1,4 @@
-package com.example.andreavalenziano.samplejsonparser.Adapters;
+package com.example.andreavalenziano.samplejsonparser.adapters;
 
 /**
  * Created by AndreaValenziano on 28/02/17.

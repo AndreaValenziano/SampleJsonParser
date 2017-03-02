@@ -1,102 +1,45 @@
-package com.example.andreavalenziano.samplejsonparser.Activities;
+package com.example.andreavalenziano.samplejsonparser.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
+import android.widget.Button;
 
-import com.example.andreavalenziano.samplejsonparser.Callback.SimpleItemTouchHelperCallback;
-import com.example.andreavalenziano.samplejsonparser.Model.Student;
 import com.example.andreavalenziano.samplejsonparser.R;
-import com.example.andreavalenziano.samplejsonparser.Adapters.StudentsAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
 
 /**
- * Created by AndreaValenziano on 27/02/17.
+ * Created by AndreaValenziano on 02/03/17.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    RecyclerView studentsRv;
-    LinearLayoutManager layoutManager;
-    StudentsAdapter adapter;
-    ItemTouchHelper mItemTouchHelper;
-
-    private static final String STUDENTS_KEY="students";
+    Button sampleApiBtn, sampleJasonBtn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sampleApiBtn=(Button)findViewById(R.id.sample_api_btn);
+        sampleJasonBtn=(Button) findViewById(R.id.list_user_btn);
 
-        studentsRv=(RecyclerView)findViewById(R.id.students_rv);
-        layoutManager=new LinearLayoutManager(this);
-        adapter=new StudentsAdapter();
-
-        studentsRv.setAdapter(adapter);
-        studentsRv.setLayoutManager(layoutManager);
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(studentsRv);
-        fetchStudentsFromJSON();
-
-
+        sampleApiBtn.setOnClickListener(this);
+        sampleJasonBtn.setOnClickListener(this);
     }
 
 
-    private void fetchStudentsFromJSON() {
-        ArrayList<Student> students = new ArrayList<>();
-        try {
+    @Override
+    public void onClick(View v) {
 
-            JSONArray studentsJsonArray = new JSONArray(readLocalJson());
-            for (int i = 0; i < studentsJsonArray.length(); i++) {
-                JSONObject jsonStudent = studentsJsonArray.getJSONObject(i);
-                students.add(new Student(jsonStudent));
-            }
+        int id=v.getId();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(id==R.id.sample_api_btn){
+            startActivity(new Intent(this, SampleApiActivity.class));
+        }
+        if(id==R.id.list_user_btn){
+            startActivity(new Intent(this,StudentsActivity.class));
         }
 
-
-        // add dataset to adapter
-        adapter.setDataSet(students);
-
     }
-
-
-    private String readLocalJson() {
-
-        Writer writer = new StringWriter();
-        char[] buffer = new char[1024];
-        try (InputStream is = getResources().openRawResource(R.raw.students)) {
-
-            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            int n;
-            while ((n = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, n);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return writer.toString();
-    }
-
-
-
 }

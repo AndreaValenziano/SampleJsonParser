@@ -1,10 +1,9 @@
-package com.example.andreavalenziano.samplejsonparser.Callback;
+package com.example.andreavalenziano.samplejsonparser.callbacks;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.example.andreavalenziano.samplejsonparser.Adapters.ItemTouchHelperAdapter;
-import com.example.andreavalenziano.samplejsonparser.Adapters.StudentsAdapter;
+import com.example.andreavalenziano.samplejsonparser.adapters.ItemTouchHelperAdapter;
 
 /**
  * Created by AndreaValenziano on 28/02/17.
