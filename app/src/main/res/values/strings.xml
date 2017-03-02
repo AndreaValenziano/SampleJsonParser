@@ -5,4 +5,6 @@
     <string name="search_label">Search</string>
     <string name="go">Go</string>
     <string name="city">City</string>
+    <string name="dialog_message">Completa tutti i campi</string>
+    <string name="dialog_title">Errore</string>
 </resources>

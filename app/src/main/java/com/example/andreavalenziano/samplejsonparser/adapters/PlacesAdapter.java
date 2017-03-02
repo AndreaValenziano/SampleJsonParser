@@ -70,7 +70,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
             if(v.getId()==R.id.go_maps_btn){
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                Uri uri = Uri.parse("geo:0,0?q=" + dataSet.get(getAdapterPosition()).getAddress());
+                double lat=dataSet.get(getAdapterPosition()).getLatitiude();
+                double lng=dataSet.get(getAdapterPosition()).getLongitude();
+                String address=dataSet.get(getAdapterPosition()).getAddress();
+                if(address.isEmpty()){
+                    address=lat+", "+lng;
+                }
+                Uri uri = Uri.parse("geo:0,0?q=" + address);
                 intent.setData(uri);
                 v.getContext().startActivity(intent);
             }

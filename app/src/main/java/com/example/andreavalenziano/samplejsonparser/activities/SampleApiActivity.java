@@ -1,11 +1,14 @@
 package com.example.andreavalenziano.samplejsonparser.activities;
 
+import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -69,8 +72,23 @@ public class SampleApiActivity extends AppCompatActivity {
 
     private void doSearch() {
         String query = searchEt.getText().toString();
+        Log.d(ContentValues.TAG,"QUERY: "+query);
         String near=searchCityET.getText().toString();
-        new FoursquareApiTask().execute(query, near);
+        if(query.isEmpty()||near.isEmpty()){
+            showAlertDialog();
+
+        }else{
+            new FoursquareApiTask().execute(query, near);
+        }
+
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.dialog_message)
+                .setTitle(R.string.dialog_title);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private class FoursquareApiTask extends AsyncTask<String, Void, ArrayList<Place>>{
